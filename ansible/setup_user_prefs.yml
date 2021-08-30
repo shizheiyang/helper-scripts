@@ -1,0 +1,17 @@
+---
+- name: Setup user preferences
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    bashrc: '~/.bashrc'
+
+  tasks:
+  - name: git aliases
+    blockinfile:
+      path: "{{ bashrc }}"
+      block: |
+        alias git-ls='git diff-tree --no-commit-id --name-only -r '
+        alias git-log='git log --oneline --decorate'
+      marker: "# {mark} ANSIBLE MANAGED BLOCK - git aliases"
